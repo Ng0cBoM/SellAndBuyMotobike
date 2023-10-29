@@ -12,13 +12,28 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
-    @GetMapping("/{username}")
-    public ResponseEntity<?> getUserByUsername(@PathVariable String username){
-        UserDto user = userService.getUserByUsername(username);
-        return  ResponseEntity.ok(user);
+    @PostMapping("/registration")
+    public String registerUserAccount(@ModelAttribute("userdto") UserDto userDto){
+        if(userService.checkUserByEmail(userDto.getEmail())){
+            return "redirect:/registration?emailexist";
+        }
+        if(userService.checkUserByPhone(userDto.getPhone())){
+            return "redirect:/registration?phoneexist";
+        }
+        if(userService.checkUserByUsername(userDto.getUsername())){
+            return "redirect:/registration?usernameexist";
+        }
+        if(userDto.getPassword().equals(userDto.getCheckPassword())==false){
+            return "redirect:/registration?checkpass";
+        }
+        userService.save(userDto);
+        return "redirect:/registration?success";
     }
-    @PostMapping("")
-    public  ResponseEntity<?> createUser(){
-        return null;
+    @PostMapping("/login")
+    public String Login(@ModelAttribute("userdto") UserDto userDto){
+        if(userService.checkPasswordUser(userDto.getEmail(),userDto.getPassword())){
+            return "redirect:/home?success";
+        }
+        return "redirect:/login?PasswordOrEmailWrong";
     }
 }
