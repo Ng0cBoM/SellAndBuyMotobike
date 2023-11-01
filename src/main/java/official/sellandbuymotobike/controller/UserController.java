@@ -15,11 +15,12 @@ public class UserController {
     public UserDto userResgistrationDto(){
         return new UserDto();
     }
+
+    // registration
     @GetMapping("/registration")
     public String showRegistrationForm(){
         return "/registration";
     }
-
     @PostMapping("/registration")
     public String registerUserAccount(@ModelAttribute("userdto") UserDto userDto){
         if(userService.checkUserbyEmail(userDto.getEmail())){
@@ -30,5 +31,22 @@ public class UserController {
         }
         userService.save(userDto);
         return "redirect:/registration?success";
+    }
+
+    // login
+    @GetMapping("/login")
+    public String showLoginForm(){
+        return "/login";
+    }
+    @PostMapping("/login")
+    public String Login(@ModelAttribute("userdto") UserDto userDto){
+        if(userService.checkUserbyEmail(userDto.getEmail())==false){
+            return "redirect:/login?emailwrong";
+        }
+        if(userService.checkPasswordUser(userDto.getEmail(),userDto.getPassword())){
+            return "redirect:/home?success";
+        }
+
+        return "redirect:/login?passwordwrong";
     }
 }

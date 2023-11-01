@@ -17,7 +17,7 @@
         <div class="col-md-6 col-md-offset-3">
             <!-- success message  -->
             <div th:if="${param.success}">
-                <div class="alert alert-info"> You are successfull registered to app!</div>
+                <div class="alert alert-info"> You are successfully registered to app!</div>
             </div>
 
             <h1>Registration</h1>
@@ -28,11 +28,11 @@
                            autofocus="autofocus"/>
                 </div>
                 <div th:if="${param.emailexist}">
-                    <div class="alert alert-info"> You email have exist please register other email</div>
+                    <div class="alert alert-info"> You email have exists please register other email</div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="UserDisplayName"> UserDisplayName </label>
+                    <label class="control-label" for="UserDisplayName"> Name </label>
                     <input type="text" id="UserDisplayName" class="form-control" th:field="*{name}" required/>
                 </div>
 
@@ -47,7 +47,7 @@
                 </div>
 
                 <div th:if="${param.checkpass}">
-                    <div class="alert alert-info"> You password and checkpass not same ! Please checkout it!</div>
+                    <div class="alert alert-info"> You password and checkpassword not same ! Please check out it!</div>
                 </div>
 
                 <div class="form-group">
