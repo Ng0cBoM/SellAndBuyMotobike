@@ -1,8 +1,6 @@
 package official.sellandbuymotobike.entity;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
 import javax.persistence.*;
 @Entity
