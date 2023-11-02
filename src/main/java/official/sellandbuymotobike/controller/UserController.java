@@ -5,14 +5,17 @@ import official.sellandbuymotobike.dto.UserDto;
 import official.sellandbuymotobike.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.WebRequest;
 
 @Controller
 @AllArgsConstructor
+@SessionAttributes("userdto")
 public class UserController {
 
     private UserService userService;
     @ModelAttribute("userdto")
-    public UserDto userResgistrationDto(){
+    public UserDto userDto(){
         return new UserDto();
     }
 
@@ -48,5 +51,13 @@ public class UserController {
         }
 
         return "redirect:/login?passwordwrong";
+    }
+
+    //logout
+    @GetMapping("/logout")
+    public String Logout(@ModelAttribute("userdto") UserDto userDto, WebRequest request, SessionStatus status){
+        status.setComplete();
+        request.removeAttribute("userdto",WebRequest.SCOPE_SESSION);
+        return "redirect:/login";
     }
 }
