@@ -17,7 +17,7 @@ public class Post implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = true)
     private String description;
 
     @Column(name = "address", nullable = false)
@@ -28,4 +28,12 @@ public class Post implements Serializable {
 
     @Column(name = "creation_date", nullable = false)
     private String creationDate;
+
+    public Post(String title, String description, String address, boolean state, String creationDate) {
+        this.title = title;
+        this.description = description;
+        this.address = address;
+        this.state = state;
+        this.creationDate = creationDate;
+    }
 }
