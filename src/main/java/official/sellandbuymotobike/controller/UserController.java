@@ -10,11 +10,11 @@ import org.springframework.web.context.request.WebRequest;
 
 @Controller
 @AllArgsConstructor
-@SessionAttributes("userdto")
+@SessionAttributes("userDto")
 public class UserController {
 
     private UserService userService;
-    @ModelAttribute("userdto")
+    @ModelAttribute("userDto")
     public UserDto userDto(){
         return new UserDto();
     }
@@ -25,7 +25,7 @@ public class UserController {
         return "/registration";
     }
     @PostMapping("/registration")
-    public String registerUserAccount(@ModelAttribute("userdto") UserDto userDto){
+    public String registerUserAccount(@ModelAttribute("userDto") UserDto userDto){
         if(userService.checkUserbyEmail(userDto.getEmail())){
             return "redirect:/registration?emailexist";
         }
@@ -42,7 +42,7 @@ public class UserController {
         return "/login";
     }
     @PostMapping("/login")
-    public String Login(@ModelAttribute("userdto") UserDto userDto){
+    public String Login(@ModelAttribute("userDto") UserDto userDto){
         if(userService.checkUserbyEmail(userDto.getEmail())==false){
             return "redirect:/login?emailwrong";
         }
@@ -55,9 +55,9 @@ public class UserController {
 
     //logout
     @GetMapping("/logout")
-    public String Logout(@ModelAttribute("userdto") UserDto userDto, WebRequest request, SessionStatus status){
+    public String Logout(@ModelAttribute("userDto") UserDto userDto, WebRequest request, SessionStatus status){
         status.setComplete();
-        request.removeAttribute("userdto",WebRequest.SCOPE_SESSION);
+        request.removeAttribute("userDto",WebRequest.SCOPE_SESSION);
         return "redirect:/login";
     }
 }

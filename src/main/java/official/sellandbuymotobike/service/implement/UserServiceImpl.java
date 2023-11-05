@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
         User user = new User(
                 userDto.getEmail(),
                 userDto.getName(),
-                0,
                 userDto.getPassword(),
                 creationDate
         );

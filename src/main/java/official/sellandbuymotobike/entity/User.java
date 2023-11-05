@@ -21,19 +21,15 @@ public class User implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "number_of_followers", nullable = false)
-    private int numberOfFollowers;
-
     @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "creation_date", nullable = false)
     private String creationDate;
 
-    public User(String email, String name, int numberOfFollowers, String password, String creationDate) {
+    public User(String email, String name, String password, String creationDate) {
         this.email = email;
         this.name = name;
-        this.numberOfFollowers = numberOfFollowers;
         this.password = password;
         this.creationDate = creationDate;
     }

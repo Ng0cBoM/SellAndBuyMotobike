@@ -1,12 +1,14 @@
 package official.sellandbuymotobike.reponsitory;
 
-import official.sellandbuymotobike.entity.Post;
+import official.sellandbuymotobike.entity.relationship.UserPostMotorbike;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @EnableJpaRepositories
-public interface PostRepository extends JpaRepository<Post,Integer> {
+public interface UserPostMotorbikeRepository extends JpaRepository<UserPostMotorbike,Integer> {
 
 }

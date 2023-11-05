@@ -13,4 +13,13 @@ public class Conversation implements Serializable {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id_1")
+    private User user1;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id_2")
+    private User user2;
+
 }

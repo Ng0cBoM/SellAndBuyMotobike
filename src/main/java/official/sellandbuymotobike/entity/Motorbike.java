@@ -31,10 +31,30 @@ public class Motorbike implements Serializable {
     @Column(name = "odometer", nullable = false)
     private  int odometer;
 
-    public Motorbike(int price, String status, String licensePlates, int odometer) {
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private MotorbikeBrand motorbikeBrand;
+
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private MotorbikeModel motorbikeModel;
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private MotorbikeType motorbikeType;
+
+    @ManyToOne
+    @JoinColumn(name = "capacity_id")
+    private MotorbikeEngineCapacity motorbikeEngineCapacity;
+
+    public Motorbike(int price, String status, String licensePlates, int odometer, MotorbikeBrand motorbikeBrand, MotorbikeModel motorbikeModel, MotorbikeType motorbikeType, MotorbikeEngineCapacity motorbikeEngineCapacity) {
         this.price = price;
         this.status = status;
         this.licensePlates = licensePlates;
         this.odometer = odometer;
+        this.motorbikeBrand = motorbikeBrand;
+        this.motorbikeModel = motorbikeModel;
+        this.motorbikeType = motorbikeType;
+        this.motorbikeEngineCapacity = motorbikeEngineCapacity;
     }
 }

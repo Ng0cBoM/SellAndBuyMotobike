@@ -19,4 +19,18 @@ public class Shop implements Serializable {
 
     @Column(name = "address", nullable = false)
     private String address;
+
+    @Column(name = "number_of_followers", nullable = false)
+    private int numberOfFollowers;
+
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
+    public Shop(String name, String address, int numberOfFollowers, User user) {
+        this.name = name;
+        this.address = address;
+        this.numberOfFollowers = numberOfFollowers;
+        this.user = user;
+    }
 }

@@ -20,4 +20,12 @@ public class Message implements Serializable {
 
     @Column(name = "time", nullable = false)
     private String time;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "conversation_id")
+    private Conversation conversation;
 }
