@@ -1,47 +1,175 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>CreatePost</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .container-sm {
+            max-width: 550px;
+        }
+        .container-lg {
+            max-width: 750px;
+        }
+        .form-label.required:after {
+            content:" *";
+            color:red;
+        }
+    </style>
 </head>
 <body>
-<!--<th:block th:include="/_header_on" th:if="${userdto.email}"></th:block>-->
-<!--<th:block th:include="/_header_off" th:unless="${userdto.email}"></th:block>-->
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <form>
-                <div class="form-group">
-                    <span class="col-6"> Tình trạng xe: </span>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Đã Sử Dụng</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Mới</label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Hãng Xe
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
-                </div>
 
-            </form>
+<form class="needs-validation" novalidate action="/post" method="post">
+    <div class="container-sm mt-5 mb-5">
+        <div class="row m-4">
+            <div class="col-12 text-center">
+                <h4>Thông tin xe</h4>
+            </div>
+        </div>
+<!--        Tình trạng xe-->
+        <div class="row mt-4 mb-4 me-2 ms-2 fs-5">
+            <div class="col-4">
+                Tình trạng xe
+            </div>
+            <div class="col-4">
+                <input class="form-check-input" type="radio" th:field="*{motorbikeDto.status}" value="Đã sử dụng" id="RadioUsed" checked>
+                <label class="form-check-label" for="RadioUsed">Đã sử dụng</label>
+            </div>
+            <div class="col-4">
+                <input class="form-check-input" type="radio" th:field="*{status}" value="Xe mới" id="RadioNew">
+                <label class="form-check-label" for="RadioNew">Xe mới</label>
+            </div>
+        </div>
+<!--        Hãng Xe-->
+        <div class="row m-2">
+            <div class="col-12">
+                <label class="form-label required">Hãng xe</label>
+                <select class="form-select rounded-0" aria-label="" required>
+                    <option selected></option>
+                </select>
+            </div>
+        </div>
+<!--        Loại Xe-->
+        <div class="row m-2">
+            <div class="col-12">
+                <label class="form-label required">Loại xe</label>
+                <select class="form-select rounded-0" aria-label="" required>
+                    <option selected></option>
+                </select>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-12">
+                <label class="form-label required">Dòng Xe</label>
+                <input type="text" class="form-control rounded-0" id="" placeholder="" value="" required >
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-12">
+                <label class="form-label required">Dung Tích Xe</label>
+                <select class="form-select rounded-0" aria-label="" required>
+                    <option selected></option>
+                </select>
+            </div>
+        </div>
+<!--        So Km đã đi, biển số xe-->
+        <div class="row m-2">
+            <div class="col-6">
+                <label class="form-label">Số KM Đã Đi</label>
+                <input type="text" class="form-control rounded-0" id="" placeholder="" value="">
+            </div>
+            <div class="col-6">
+                <label class="form-label">Biển số xe</label>
+                <input type="text" class="form-control rounded-0" id="" placeholder="" value="" >
+            </div>
+        </div>
+
+
+        <div class="row m-2">
+            <div class="col-12">
+                <label class="form-label required">Giá bán</label>
+                <input type="text" class="form-control rounded-0" id="" placeholder="" value="" required >
+                <div class="invalid-feedback">Field is required.</div>
+            </div>
         </div>
     </div>
-</div>
+    <div class="container-lg mt-5 mb-5">
+        <div class="row m-4">
+            <div class="col-12 text-center">
+                <h4>Tiêu đề đăng tin và Mô tả chi tiết</h4>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-12">
+                <label for="firstName" class="form-label required">Tiêu đề đăng tin</label>
+                <input type="text" class="form-control rounded-0" id="title" placeholder="" value="" required>
+                <div><small id="title_count" class="string-count">0/50 ký tự</small></div>
+                <div class="invalid-feedback">Field is required.</div>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-12">
+                <label for="firstName" class="form-label required">Mô tả chi tiết</label>
+                <textarea class="form-control rounded-0" id="description" maxlength="1500" aria-label="" required></textarea>
+                <div><small id="description_count" class="string-count">0/1500 ký tự</small></div>
+                <div class="invalid-feedback">Field is required.</div>
+            </div>
+        </div>
+        <div class="row m-2">
+            <div class="col-12">
+                <label for="firstName" class="form-label required">Địa chỉ nơi bán</label>
+                <input type="text" class="form-control rounded-0" id="" placeholder="" value="" required>
+                <div class="invalid-feedback">Field is required.</div>
+            </div>
+        </div>
+        <div class="row m-4">
+            <div class="col-12 text-center">
+                <button class="w-50 btn btn-primary btn-lg rounded-0" type="submit">Đăng Tin</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#description').on('keyup', function() {
+            $('#description_count').html($(this).val().length+"/1500 ký tự");
+
+            if($(this).val().length > 1500) {
+                $(this).val($(this).val().substring(0, 2140));
+                $('#description_count').html("0/1500 ký tự");
+            }
+        });
+
+        $('#title').on('keyup', function() {
+            $('#title_count').html($(this).val().length+"/50 ký tự");
+
+            if($(this).val().length > 50) {
+                $(this).val($(this).val().substring(0, 2140));
+                $('#title_count').html("0/50 ký tự");
+            }
+        });
+    });
+
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
 </body>
 </html>

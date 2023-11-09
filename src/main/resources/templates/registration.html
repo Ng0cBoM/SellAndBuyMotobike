@@ -21,7 +21,7 @@
             </div>
 
             <h1>Registration</h1>
-            <form th:action="@{/registration}" method="post" th:object="${userdto}">
+            <form th:action="@{/registration}" method="post" th:object="${userDto}">
                 <div class="form-group">
                     <label class="control-label" for="Email"> Email </label>
                     <input type="text" id="Email" class="form-control" th:field="*{email}" required
