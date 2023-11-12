@@ -60,10 +60,10 @@ public class CreatePostController {
         List<MotorbikeModel> modelList = modelRepository.findAll();
         List<MotorbikeType> typeList = typeRepository.findAll();
         List<MotorbikeEngineCapacity> capacityList = capacityRepository.findAll();
-        model.addAttribute("brand",brandList);
-        model.addAttribute("model",modelList);
-        model.addAttribute("type",typeList);
-        model.addAttribute("capacity",capacityList);
+        model.addAttribute("brands",brandList);
+        model.addAttribute("models",modelList);
+        model.addAttribute("types",typeList);
+        model.addAttribute("capacitys",capacityList);
         return "/post";
     }
     @PostMapping("/post")

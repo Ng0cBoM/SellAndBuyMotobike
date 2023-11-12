@@ -33,11 +33,11 @@
                 Tình trạng xe
             </div>
             <div class="col-4">
-                <input class="form-check-input" type="radio" th:field="*{motorbikeDto.status}" value="Đã sử dụng" id="RadioUsed" checked>
+                <input class="form-check-input" type="radio" th:field="*{motorbikeDto.status}" value="Đã sử dụng" id="RadioUsed" name="status">
                 <label class="form-check-label" for="RadioUsed">Đã sử dụng</label>
             </div>
             <div class="col-4">
-                <input class="form-check-input" type="radio" th:field="*{status}" value="Xe mới" id="RadioNew">
+                <input class="form-check-input" type="radio" th:field="*{motorbikeDto.status}" value="Xe mới" id="RadioNew" name="status">
                 <label class="form-check-label" for="RadioNew">Xe mới</label>
             </div>
         </div>
@@ -45,8 +45,8 @@
         <div class="row m-2">
             <div class="col-12">
                 <label class="form-label required">Hãng xe</label>
-                <select class="form-select rounded-0" aria-label="" required>
-                    <option selected></option>
+                <select class="form-select rounded-0" aria-label="" required name="brandId">
+                    <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
                 </select>
             </div>
         </div>
@@ -54,22 +54,24 @@
         <div class="row m-2">
             <div class="col-12">
                 <label class="form-label required">Loại xe</label>
-                <select class="form-select rounded-0" aria-label="" required>
-                    <option selected></option>
+                <select class="form-select rounded-0" aria-label="" required name="typeId">
+                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
                 </select>
             </div>
         </div>
         <div class="row m-2">
             <div class="col-12">
                 <label class="form-label required">Dòng Xe</label>
-                <input type="text" class="form-control rounded-0" id="" placeholder="" value="" required >
+                <select class="form-select rounded-0" aria-label="" required name="modelId">
+                <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}"></option>
+                </select>
             </div>
         </div>
         <div class="row m-2">
             <div class="col-12">
                 <label class="form-label required">Dung Tích Xe</label>
-                <select class="form-select rounded-0" aria-label="" required>
-                    <option selected></option>
+                <select class="form-select rounded-0" aria-label="" required name="capacityId">
+                    <option th:each="capacity : ${capacitys}" th:value="${capacity.id}" th:text="${capacity.name}"></option>
                 </select>
             </div>
         </div>
@@ -77,11 +79,11 @@
         <div class="row m-2">
             <div class="col-6">
                 <label class="form-label">Số KM Đã Đi</label>
-                <input type="text" class="form-control rounded-0" id="" placeholder="" value="">
+                <input type="number" class="form-control rounded-0" th:field="*{motorbikeDto.odometer}" min="1"  >
             </div>
             <div class="col-6">
                 <label class="form-label">Biển số xe</label>
-                <input type="text" class="form-control rounded-0" id="" placeholder="" value="" >
+                <input type="text" class="form-control rounded-0" th:field="*{motorbikeDto.licensePlates}">
             </div>
         </div>
 
@@ -89,7 +91,7 @@
         <div class="row m-2">
             <div class="col-12">
                 <label class="form-label required">Giá bán</label>
-                <input type="text" class="form-control rounded-0" id="" placeholder="" value="" required >
+                <input type="number" class="form-control rounded-0" th:field="*{motorbikeDto.price}" min="1"  required >
                 <div class="invalid-feedback">Field is required.</div>
             </div>
         </div>
@@ -102,24 +104,24 @@
         </div>
         <div class="row m-2">
             <div class="col-12">
-                <label for="firstName" class="form-label required">Tiêu đề đăng tin</label>
-                <input type="text" class="form-control rounded-0" id="title" placeholder="" value="" required>
+                <label class="form-label required">Tiêu đề đăng tin</label>
+                <input type="text" class="form-control rounded-0" th:field="*{postDto.title}" required>
                 <div><small id="title_count" class="string-count">0/50 ký tự</small></div>
                 <div class="invalid-feedback">Field is required.</div>
             </div>
         </div>
         <div class="row m-2">
             <div class="col-12">
-                <label for="firstName" class="form-label required">Mô tả chi tiết</label>
-                <textarea class="form-control rounded-0" id="description" maxlength="1500" aria-label="" required></textarea>
+                <label class="form-label required">Mô tả chi tiết</label>
+                <textarea class="form-control rounded-0" id="description" maxlength="1500" aria-label="" th:field="*{postDto.description}" required></textarea>
                 <div><small id="description_count" class="string-count">0/1500 ký tự</small></div>
                 <div class="invalid-feedback">Field is required.</div>
             </div>
         </div>
         <div class="row m-2">
             <div class="col-12">
-                <label for="firstName" class="form-label required">Địa chỉ nơi bán</label>
-                <input type="text" class="form-control rounded-0" id="" placeholder="" value="" required>
+                <label class="form-label required">Địa chỉ nơi bán</label>
+                <input type="text" class="form-control rounded-0" id="" th:field="*{postDto.address}" required>
                 <div class="invalid-feedback">Field is required.</div>
             </div>
         </div>

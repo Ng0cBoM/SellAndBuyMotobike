@@ -13,5 +13,4 @@ public class PostDto implements Serializable {
     private String title;
     private String description;
     private String address;
-    private boolean state;
 }

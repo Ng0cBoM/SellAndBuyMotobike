@@ -9,7 +9,7 @@ public class PostMapper {
             tmp.setTitle(postDto.getTitle());
             tmp.setDescription(postDto.getDescription());
             tmp.setAddress(postDto.getAddress());
-            tmp.setState(postDto.isState());
+            tmp.setState(true);
             return  tmp;
         }
 }

@@ -5,7 +5,7 @@ import official.sellandbuymotobike.dto.MotorbikeDto;
 import official.sellandbuymotobike.entity.*;
 
 public class MotorbikeMapper {
-☺    public static Motorbike MotorbikeDtoToMotorbike(MotorbikeDto motorbikeDto,
+public static Motorbike MotorbikeDtoToMotorbike(MotorbikeDto motorbikeDto,
                                                      MotorbikeBrand brand,
                                                      MotorbikeModel model,
                                                      MotorbikeType type,
