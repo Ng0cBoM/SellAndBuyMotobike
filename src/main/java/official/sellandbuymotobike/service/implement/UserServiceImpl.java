@@ -1,7 +1,9 @@
 package official.sellandbuymotobike.service.implement;
 
 import official.sellandbuymotobike.dto.UserDto;
+import official.sellandbuymotobike.entity.Shop;
 import official.sellandbuymotobike.entity.User;
+import official.sellandbuymotobike.reponsitory.ShopRepository;
 import official.sellandbuymotobike.reponsitory.UserRepository;
 import official.sellandbuymotobike.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private ShopRepository shopRepository;
+
     @Override
     public void save(UserDto userDto) {
         LocalDateTime Date = LocalDateTime.now();
@@ -26,7 +31,9 @@ public class UserServiceImpl implements UserService {
                 userDto.getPassword(),
                 creationDate
         );
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
+        Shop shop = new Shop("", "", 0, savedUser);
+        shopRepository.save(shop);
     }
 
     @Override

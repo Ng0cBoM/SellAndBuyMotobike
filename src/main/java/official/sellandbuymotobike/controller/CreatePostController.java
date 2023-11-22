@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import official.sellandbuymotobike.dto.MotorbikeDto;
 import official.sellandbuymotobike.dto.PostDto;
 import official.sellandbuymotobike.dto.UserDto;
-import official.sellandbuymotobike.dto.mapper.MotorbikeMapper;
-import official.sellandbuymotobike.dto.mapper.PostMapper;
 import official.sellandbuymotobike.entity.*;
 import official.sellandbuymotobike.entity.relationship.UserPostMotorbike;
 import official.sellandbuymotobike.reponsitory.*;
@@ -15,15 +13,13 @@ import official.sellandbuymotobike.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
+@SessionAttributes("userDto")
 public class CreatePostController {
 
     private UserService userService;
@@ -80,14 +76,14 @@ public class CreatePostController {
         MotorbikeType type = typeRepository.getMotorbikeTypeByID(Integer.parseInt(String.valueOf(typeId)));
         MotorbikeEngineCapacity capacity = capacityRepository.getMotorbikeEngineCapacityByID(Integer.parseInt(String.valueOf(capacityId)));
 
-        postService.save(postDto);
+        Post savedPost = postService.save(postDto);
 
-        motorbikeService.save(motorbikeDto,brand,model,type,capacity);
+        Motorbike savedMotorbike = motorbikeService.save(motorbikeDto,brand,model,type,capacity);
 
         UserPostMotorbike userPostMotorbike = new UserPostMotorbike();
         userPostMotorbike.setUser(user);
-        userPostMotorbike.setPost(PostMapper.PostDtoToPost(postDto()));
-        userPostMotorbike.setMotorbike(MotorbikeMapper.MotorbikeDtoToMotorbike(motorbikeDto(),brand,model,type,capacity));
+        userPostMotorbike.setPost(savedPost);
+        userPostMotorbike.setMotorbike(savedMotorbike);
         userPostMotorbikeRepository.save(userPostMotorbike);
         return null;
     }

@@ -17,7 +17,7 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
     @Override
-    public void save(PostDto postDto) {
+    public Post save(PostDto postDto) {
         LocalDateTime Date = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String creationDate = Date.format(formatter);
@@ -27,6 +27,7 @@ public class PostServiceImpl implements PostService {
                 postDto.getAddress(),
                 true,
                 creationDate);
-        postRepository.save(post);
+        Post savedPost = postRepository.save(post);
+        return  savedPost;
     }
 }

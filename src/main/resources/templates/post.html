@@ -19,8 +19,10 @@
     </style>
 </head>
 <body>
+<div style="position: fixed;top: 0;width: 100%;z-index: 1000;" th:include="/_header_on" th:if="${userDto.email}"></div>
+<div style="position: fixed;top: 0;width: 100%;z-index: 1000;" th:include="/_header_off" th:unless="${userDto.email}"></div>
 
-<form class="needs-validation" novalidate action="/post" method="post">
+<form class="needs-validation" style="margin-top: 70px;"  novalidate action="/post" method="post">
     <div class="container-sm mt-5 mb-5">
         <div class="row m-4">
             <div class="col-12 text-center">
@@ -33,11 +35,11 @@
                 Tình trạng xe
             </div>
             <div class="col-4">
-                <input class="form-check-input" type="radio" th:field="*{motorbikeDto.status}" value="Đã sử dụng" id="RadioUsed" name="status">
-                <label class="form-check-label" for="RadioUsed">Đã sử dụng</label>
+                <input class="form-check-input" type="radio" th:field="*{motorbikeDto.status}" value="Đã sử dụng" id="RadioUsed" name="status" required>
+                <label class="form-check-label" for="RadioUsed"> Đã sử dụng</label>
             </div>
             <div class="col-4">
-                <input class="form-check-input" type="radio" th:field="*{motorbikeDto.status}" value="Xe mới" id="RadioNew" name="status">
+                <input class="form-check-input" type="radio" th:field="*{motorbikeDto.status}" value="Xe mới" id="RadioNew" name="status" required>
                 <label class="form-check-label" for="RadioNew">Xe mới</label>
             </div>
         </div>
@@ -46,7 +48,7 @@
             <div class="col-12">
                 <label class="form-label required">Hãng xe</label>
                 <select class="form-select rounded-0" aria-label="" required name="brandId">
-                    <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+                    <option th:each="brand : ${brands}" th:value="${brand.ID}" th:text="${brand.name}"></option>
                 </select>
             </div>
         </div>
@@ -55,7 +57,7 @@
             <div class="col-12">
                 <label class="form-label required">Loại xe</label>
                 <select class="form-select rounded-0" aria-label="" required name="typeId">
-                    <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"></option>
+                    <option th:each="type : ${types}" th:value="${type.ID}" th:text="${type.name}"></option>
                 </select>
             </div>
         </div>
@@ -63,7 +65,7 @@
             <div class="col-12">
                 <label class="form-label required">Dòng Xe</label>
                 <select class="form-select rounded-0" aria-label="" required name="modelId">
-                <option th:each="model : ${models}" th:value="${model.id}" th:text="${model.name}"></option>
+                <option th:each="model : ${models}" th:value="${model.ID}" th:text="${model.name}"></option>
                 </select>
             </div>
         </div>
@@ -71,7 +73,7 @@
             <div class="col-12">
                 <label class="form-label required">Dung Tích Xe</label>
                 <select class="form-select rounded-0" aria-label="" required name="capacityId">
-                    <option th:each="capacity : ${capacitys}" th:value="${capacity.id}" th:text="${capacity.name}"></option>
+                    <option th:each="capacity : ${capacitys}" th:value="${capacity.ID}" th:text="${capacity.capacity}"></option>
                 </select>
             </div>
         </div>
