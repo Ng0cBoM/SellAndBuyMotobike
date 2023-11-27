@@ -9,12 +9,168 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/uikit.min.css}">
+    <link rel="stylesheet" th:href="@{/slick.css}">
+    <link rel="stylesheet" th:href="@{/slick-theme.css}">
+    <link rel="stylesheet" th:href="@{/ion.rangeSlider.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
 </head>
 
 <body>
-<th:block th:include="/_header_on" th:if="${userDto.email}"></th:block>
-<th:block th:include="/_header_off" th:unless="${userDto.email}"></th:block>
+<div id="main-container" style="padding-top: 60px">
+<div style="position: fixed;top: 0;width: 100%;z-index: 1000;" th:include="/_header_on" th:if="${userDto.email}"></div>
+<div style="position: fixed;top: 0;width: 100%;z-index: 1000;" th:include="/_header_off" th:unless="${userDto.email}"></div>
 <div class="container">
+    <div class="uk-grid" data-uk-grid="">
+        <div class="uk-width-1-3@m uk-first-column">
+            <div class="js-filter-more filter-more">
+                <div class="filter-more__desc">
+                    <div class="uk-h4">Bộ Lọc</div>
+                </div>
+                <div class="filter-more__icon"><img src="/logo.svg" alt="logo"></div>
+            </div>
+            <aside class="sidebar js-filter-content">
+                <div class="widjet widjet--filters">
+                    <div class="widjet__content">
+                        <div class="uk-grid uk-grid-small uk-child-width-1-2" data-uk-grid="">
+                            <div class="uk-width-1-1 uk-first-column">
+                                <select class="uk-select uk-form-large" name="brand" id="brand">
+                                    <option value="" selected>Chọn Hãng Xe</option>
+                                    <option th:each="brand : ${brands}" th:value="${brand.ID}" th:text="${brand.name}"></option>
+                                </select>
+                            </div>
+                            <div class="uk-width-1-1 uk-grid-margin uk-first-column">
+                                <select class="uk-select uk-form-large" name="type" id="type">
+                                <option value="" selected>Chọn Loại Xe</option>
+                                <option th:each="type : ${types}" th:value="${type.ID}" th:text="${type.name}"></option>
+                            </select></div>
+                            <div class="uk-width-1-1 uk-grid-margin uk-first-column">
+                                <select class="uk-select uk-form-large" name="model" id="model">
+                                <option value="" selected>Chọn Dòng Xe</option>
+                                <option th:each="model : ${models}" th:value="${model.ID}" th:text="${model.name}"></option>
+                            </select></div>
+                            <div class="uk-grid-margin uk-first-column">
+                                <select class="uk-select uk-form-large" name="capacity" id="capacity">
+                                <option value="" selected>Dung Tích Xe</option>
+                                <option th:each="capacity : ${capacities}" th:value="${capacity.ID}" th:text="${capacity.capacity}"></option>
+                            </select></div>
+                            <div class="uk-grid-margin">
+                                <select class="uk-select uk-form-large" name="status" id="status">
+                                <option value="" selected>Tình Trạng Xe</option>
+                                <option value="Đã sử dụng">Đã sử dụng</option>
+                                <option value="Xe mới">Xe mới</option>
+                            </select></div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="widjet">
+                    <div class="widjet__content">
+                        <div class="uk-text-center">
+                            <button class="uk-button uk-button-danger" onclick="applyFilters()">Áp Dụng Bộ Lọc</button>
+                            <br>
+                            <a class="uk-text-meta uk-margin-top" th:href="@{'/home'}" method=RequestMethod.GET>Clear All Filters</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <script>
+                    function applyFilters() {
+                        const brand = document.getElementById('brand').value;
+                        const type = document.getElementById('type').value;
+                        const model = document.getElementById('model').value;
+                        const capacity = document.getElementById('capacity').value;
+                        const status = document.getElementById('status').value;
+                        const url = `/home?brand=${brand}&model=${model}&type=${type}&capacity=${capacity}&status=${status}`;
+                        window.location.href = url;
+                    }
+                </script>
+            </aside>
+        </div>
+        <div class="uk-width-2-3@m">
+            <div class="sorting">
+                <div class="sorting-right">
+                    <select class="uk-select" name="orderby">
+                        <option value="date" selected="">Bài Mới Nhất</option>
+                        <option value="price">Giá Thấp -> Cao</option>
+                        <option value="price-desc">Giá Cao -> Thấp</option>
+                    </select>
+                </div>
+            </div>
+            <div class="products-items uk-grid uk-child-width-1-1 uk-grid-stack" data-uk-grid="">
+<!--                List các xe ở đây-->
+                <div th:each="userPostMotorbike : ${userpostmotorbikelist}" class="uk-grid-margin uk-first-column">
+                    <div class="product-item uk-transition-toggle product-item--list">
+                        <div class="product-item__head">
+                            <div>
+                                <div class="product-item__name">
+                                    <a href="#" th:text="${userPostMotorbike.post.getTitle()}"></a>
+                                </div>
+                                <div class="product-item__price" style="margin-top: 5px" th:text="${userPostMotorbike.motorbike.getPrice()}"></div>
+                            </div>
+                        </div>
+                        <div class="product-item__media uk-inline-clip uk-inline">
+                            <a class="uk-transition-fade" href="page-shop-product-1.html">
+                                <div class="uk-overlay-cover uk-overlay-primary"></div>
+                                <div class="uk-position-center"><span class="icon-cross"></span></div>
+                            </a>
+                        </div>
+                        <div class="product-item__info">
+                            <ul class="list-info">
+                                <li class="list-info-item">
+                                    <div class="list-info-item__title">Hãng</div>
+                                    <div class="list-info-item__value" th:text="${userPostMotorbike.motorbike.getMotorbikeBrand().name}"></div>
+                                </li>
+                                <li class="list-info-item">
+                                    <div class="list-info-item__title">Loại Xe</div>
+                                    <div class="list-info-item__value" th:text="${userPostMotorbike.motorbike.getMotorbikeType().name}"></div>
+                                </li>
+                                <li class="list-info-item">
+                                    <div class="list-info-item__title">Dòng Xe</div>
+                                    <div class="list-info-item__value" th:text="${userPostMotorbike.motorbike.getMotorbikeModel().name}"></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="product-item__specifications">
+                            <ul class="specifications-list">
+                                <li class="specifications-list-item">
+                                    <div class="specifications-list-item__icon"><img src="/specifications-1.svg" alt="Engine type"></div>
+                                    <div class="specifications-list-item__desc">
+                                        <div class="specifications-list-item__title">Dung Tích Xe</div>
+                                        <div class="specifications-list-item__value" th:text="${userPostMotorbike.motorbike.getMotorbikeEngineCapacity().capacity}"></div>
+                                    </div>
+                                </li>
+                                <li class="specifications-list-item">
+                                    <div class="specifications-list-item__icon"><img src="/specifications-2.svg" alt="Engine Power"></div>
+                                    <div class="specifications-list-item__desc">
+                                        <div class="specifications-list-item__title">Quãng đường đã đi</div>
+                                        <div class="specifications-list-item__value" th:text="${userPostMotorbike.motorbike.getOdometer()}"></div>
+                                    </div>
+                                </li>
+                                <li class="specifications-list-item">
+                                    <div class="specifications-list-item__icon"><img src="/specifications-3.svg" alt="Displacement"></div>
+                                    <div class="specifications-list-item__desc">
+                                        <div class="specifications-list-item__title">Biển Số Xe</div>
+                                        <div class="specifications-list-item__value" th:text="${userPostMotorbike.motorbike.getLicensePlates()}"></div>
+                                    </div>
+                                </li>
+                                <li class="specifications-list-item">
+                                    <div class="specifications-list-item__icon"><img src="/specifications-4.svg" alt="Bore/Stroke"></div>
+                                    <div class="specifications-list-item__desc">
+                                        <div class="specifications-list-item__title">Tình trạng Xe</div>
+                                        <div class="specifications-list-item__value" th:text="${userPostMotorbike.motorbike.getStatus()}"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>

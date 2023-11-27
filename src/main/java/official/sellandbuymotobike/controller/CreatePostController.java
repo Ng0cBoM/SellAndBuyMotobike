@@ -59,7 +59,7 @@ public class CreatePostController {
         model.addAttribute("brands",brandList);
         model.addAttribute("models",modelList);
         model.addAttribute("types",typeList);
-        model.addAttribute("capacitys",capacityList);
+        model.addAttribute("capacities",capacityList);
         return "/post";
     }
     @PostMapping("/post")

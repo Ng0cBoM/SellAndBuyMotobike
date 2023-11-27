@@ -47,7 +47,7 @@ public class UserController {
             return "redirect:/login?emailwrong";
         }
         if(userService.checkPasswordUser(userDto.getEmail(),userDto.getPassword())){
-            return "redirect:/post";
+            return "redirect:/home";
         }
 
         return "redirect:/login?passwordwrong";
