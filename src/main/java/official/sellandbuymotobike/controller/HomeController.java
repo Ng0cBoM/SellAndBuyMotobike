@@ -9,6 +9,7 @@ import official.sellandbuymotobike.entity.relationship.UserPostMotorbike;
 import official.sellandbuymotobike.reponsitory.*;
 import official.sellandbuymotobike.service.MotorbikeService;
 import official.sellandbuymotobike.service.PostService;
+import official.sellandbuymotobike.service.UserPostMotorbikeService;
 import official.sellandbuymotobike.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -29,6 +31,7 @@ public class HomeController {
     private UserService userService;
     private PostService postService;
     private MotorbikeService motorbikeService;
+    private UserPostMotorbikeService userPostMotorbikeService;
 
     @Autowired
     private MotorbikeBrandRepository brandRepository;
@@ -66,7 +69,8 @@ public class HomeController {
                               @RequestParam(name = "model", required = false) Integer modelId,
                               @RequestParam(name = "type", required = false) Integer typeId,
                               @RequestParam(name = "capacity", required = false) Integer capacityId,
-                              @RequestParam(name = "status", required = false) String status) {
+                              @RequestParam(name = "status", required = false) String status,
+                              @RequestParam(name = "order", required = false) String order) {
         //--------------------Bộ Lọc ------------------------------//
         List<MotorbikeBrand> brandList = brandRepository.findAll();
         List<MotorbikeModel> modelList = modelRepository.findAll();
@@ -81,9 +85,10 @@ public class HomeController {
 
         if (brandId==null && modelId==null && typeId ==null && capacityId== null && (status==""||status==null)){
             userPostMotorbikeList = userPostMotorbikeRepository.findAll();
+            Collections.reverse(userPostMotorbikeList);
         }
         else {
-
+            userPostMotorbikeList = userPostMotorbikeService.filter(brandId,modelId,typeId,capacityId,status,order);
         }
         model.addAttribute("userpostmotorbikelist",userPostMotorbikeList);
         return "/home";

@@ -83,7 +83,8 @@
                         const model = document.getElementById('model').value;
                         const capacity = document.getElementById('capacity').value;
                         const status = document.getElementById('status').value;
-                        const url = `/home?brand=${brand}&model=${model}&type=${type}&capacity=${capacity}&status=${status}`;
+                        const orderBy = document.getElementById("sorting-select").value;
+                        const url = `/home?brand=${brand}&model=${model}&type=${type}&capacity=${capacity}&status=${status}&order=${orderBy}`;
                         window.location.href = url;
                     }
                 </script>
@@ -92,13 +93,30 @@
         <div class="uk-width-2-3@m">
             <div class="sorting">
                 <div class="sorting-right">
-                    <select class="uk-select" name="orderby">
-                        <option value="date" selected="">Bài Mới Nhất</option>
+                    <select class="uk-select" id="sorting-select" name="orderby">
+                        <option value="date" selected>Bài Mới Nhất</option>
                         <option value="price">Giá Thấp -> Cao</option>
-                        <option value="price-desc">Giá Cao -> Thấp</option>
+                        <option value="pricedesc">Giá Cao -> Thấp</option>
                     </select>
                 </div>
             </div>
+
+            <script>
+            document.getElementById("sorting-select").addEventListener("change", function() {
+                var selectedValue = this.value;
+                sortPosts(selectedValue);
+            });
+            function sortPosts(orderBy) {
+                let url = window.location.href;
+                const regex = /order=[^&]+/; // Biểu thức chính quy để tìm chuỗi 'order='
+
+                if (url.match(regex)) {
+                    url = url.replace(regex, 'order=' + orderBy);
+                }
+                window.location.href = url;
+            }
+            </script>
+
             <div class="products-items uk-grid uk-child-width-1-1 uk-grid-stack" data-uk-grid="">
 <!--                List các xe ở đây-->
                 <div th:each="userPostMotorbike : ${userpostmotorbikelist}" class="uk-grid-margin uk-first-column">
@@ -106,13 +124,14 @@
                         <div class="product-item__head">
                             <div>
                                 <div class="product-item__name">
-                                    <a href="#" th:text="${userPostMotorbike.post.getTitle()}"></a>
+                                    <a th:href="@{'/post/' + ${userPostMotorbike.getID()}}" th:text="${userPostMotorbike.post.getTitle()}"></a>
                                 </div>
-                                <div class="product-item__price" style="margin-top: 5px" th:text="${userPostMotorbike.motorbike.getPrice()}"></div>
+                                <div class="product-item__price" style="margin-top: 5px" th:text="${userPostMotorbike.motorbike.getPrice()}+' VND'"></div>
                             </div>
                         </div>
                         <div class="product-item__media uk-inline-clip uk-inline">
-                            <a class="uk-transition-fade" href="page-shop-product-1.html">
+                            <img src="/specifications-6.svg">
+                            <a class="uk-transition-fade" th:href="@{'/post/' + ${userPostMotorbike.getID()}}">
                                 <div class="uk-overlay-cover uk-overlay-primary"></div>
                                 <div class="uk-position-center"><span class="icon-cross"></span></div>
                             </a>

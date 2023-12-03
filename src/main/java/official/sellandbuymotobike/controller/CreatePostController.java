@@ -85,7 +85,7 @@ public class CreatePostController {
         userPostMotorbike.setPost(savedPost);
         userPostMotorbike.setMotorbike(savedMotorbike);
         userPostMotorbikeRepository.save(userPostMotorbike);
-        return null;
+        return "redirect:/home";
     }
 
 

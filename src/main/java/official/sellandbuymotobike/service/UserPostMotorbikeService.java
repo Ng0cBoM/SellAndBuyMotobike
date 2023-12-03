@@ -11,10 +11,11 @@ import java.util.List;
 public interface UserPostMotorbikeService {
     void save(User user, Post post, Motorbike motorbike);
 
-    /*List<UserPostMotorbike> filter(MotorbikeBrand brand,
-                                  MotorbikeModel model,
-                                  MotorbikeType type,
-                                  MotorbikeEngineCapacity capacity,
-                                  String motorbikeStatus);*/
+    List<UserPostMotorbike> filter(Integer brandId,
+                                  Integer modelId,
+                                  Integer typeId,
+                                  Integer capacityId,
+                                  String motorbikeStatus,
+                                   String order);
 
 }

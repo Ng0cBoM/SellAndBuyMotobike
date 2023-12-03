@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/uikit.min.css}">
+    <link rel="stylesheet" th:href="@{/slick.css}">
+    <link rel="stylesheet" th:href="@{/slick-theme.css}">
+    <link rel="stylesheet" th:href="@{/ion.rangeSlider.css}">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div style="position: fixed;top: 0;width: 100%;z-index: 1000;" th:include="/_header_on" th:if="${userDto.email}"></div>
+<div style="position: fixed;top: 0;width: 100%;z-index: 1000;" th:include="/_header_off" th:unless="${userDto.email}"></div>
+<div class="uk-section-large uk-container">
+    <div class="page-product">
+        <div class="uk-grid uk-flex-middle" data-uk-grid="">
+<!--            title-->
+            <div class="uk-width-2-3@m uk-first-column">
+                <div class="page-product__title">
+                    <div class="uk-h1" style="font-size: 40px" th:text="${userpostmotorbike.getPost().getTitle()}"></div>
+                </div>
+            </div>
+<!--            price-->
+            <div class="uk-width-1-3@m">
+                <div class="page-product__price">
+                    <div><span class="current" th:text="${userpostmotorbike.getMotorbike().getPrice()}"></span><span class="current">đ</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="uk-grid" data-uk-grid="">
+            <div class="uk-width-2-3@m uk-first-column">
+                <div class="page-product__gallery">
+                    <div data-uk-slideshow="min-height: 300; max-height: 430" class="uk-slideshow">
+                        <ul class="uk-slideshow-items uk-child-width-1-1" style="min-height: 419.625px;">
+                            <li tabindex="-1" class="uk-active uk-transition-active" style=""><img class="uk-width-1-1 uk-cover" src="/specifications-6.svg" alt="img-gallery" data-uk-cover="" style="height: 560px; width: 746px;"></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="uk-margin-medium">
+                <h2>Mô Tả Thêm</h2>
+                <p th:text="${userpostmotorbike.getPost().getDescription()}"></p>
+                <h2>Thông Tin Xe</h2>
+                <div class="page-product__specifications">
+                    <ul class="product-specifications">
+                        <li class="product-specifications-item">
+                            <div class="product-specifications-item__desc">
+                                <div class="product-specifications-item__title">Trạng Thái Xe</div>
+                                <div class="product-specifications-item__value"th:text="${userpostmotorbike.getMotorbike().getStatus()}"></div>
+                            </div>
+                        </li>
+                        <li class="product-specifications-item">
+                            <div class="product-specifications-item__desc">
+                                <div class="product-specifications-item__title">Loại Xe</div>
+                                <div class="product-specifications-item__value" th:text="${userpostmotorbike.getMotorbike().getMotorbikeType().getName()}"></div>
+                            </div>
+                        </li>
+                        <li class="product-specifications-item">
+                            <div class="product-specifications-item__desc">
+                                <div class="product-specifications-item__title">Dòng Xe</div>
+                                <div class="product-specifications-item__value" th:text="${userpostmotorbike.getMotorbike().getMotorbikeModel().getName()}"></div>
+                            </div>
+                        </li>
+                        <li class="product-specifications-item">
+                            <div class="product-specifications-item__desc">
+                                <div class="product-specifications-item__title">Hãng Xe</div>
+                                <div class="product-specifications-item__value" th:text="${userpostmotorbike.getMotorbike().getMotorbikeBrand().getName()}"></div>
+                            </div>
+                        </li>
+                        <li class="product-specifications-item">
+                            <div class="product-specifications-item__desc">
+                                <div class="product-specifications-item__title">Dung Tích Xe</div>
+                                <div class="product-specifications-item__value" th:text="${userpostmotorbike.getMotorbike().getMotorbikeEngineCapacity().getCapacity()}"></div>
+                            </div>
+                        </li>
+                        <li class="product-specifications-item">
+                            <div class="product-specifications-item__desc">
+                                <div class="product-specifications-item__title">Biển Số Xe</div>
+                                <div class="product-specifications-item__value"th:text="${userpostmotorbike.getMotorbike().getLicensePlates()}"></div>
+                            </div>
+                        </li>
+                        <li class="product-specifications-item">
+                            <div class="product-specifications-item__desc">
+                                <div class="product-specifications-item__title">Tổng Quãng Đường Đã Đi</div>
+                                <div class="product-specifications-item__value" th:text="${userpostmotorbike.getMotorbike().getOdometer()} +' km'"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="uk-width-1-3@m">
+                <div class="product-block-info">
+                    <div class="product-block-info__user user">
+                        <div class="user__desc" >
+                            <div class="user__name" th:text="${userpostmotorbike.getUser().getName()}"></div>
+                            <div class="user__date" th:text="'Tham gia từ ' + ${userpostmotorbike.getUser().getCreationDate()}"></div>
+                            <a class="btn btn-primary" th:href="@{'/shop/'  + ${userpostmotorbike.getUser().getID()}}" style="margin-top: 30px">Xem Cửa Hàng</a>
+                            <a class="btn btn-primary" style="margin-top: 30px">Nhắn Tin </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

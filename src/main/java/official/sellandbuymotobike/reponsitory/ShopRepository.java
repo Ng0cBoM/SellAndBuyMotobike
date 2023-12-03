@@ -8,5 +8,4 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ShopRepository extends JpaRepository<Shop,Integer> {
-
 }

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.min.css" rel="stylesheet" />
+</head>
+
+<body>
+<div class="container p-3">
+    <div class="row">
+        <div class="left-col col-3 text-center border border-1 rounded p-3">
+            <h3 class="shop-name mb-3" th:text="${shop.getName()}"></h3>
+            <hr class="hr hr-blurry" />
+            <p class="follow mb-3" th:text=" 'Người Theo Dõi: '+${shop.getNumberOfFollowers()}"></p>
+            <button type="button" class="btn btn-primary edit-shop mb-3">Chỉnh sửa cửa hàng</button>
+            <p class="joined" th:text="'Tham Gia Từ: '+${shop.getUser().getCreationDate()}"></p>
+            <p class="address" th:text="'Địa Chỉ: '+${shop.getAddress()}"></p>
+        </div>
+        <div class="col-1"></div>
+        <div class="right-col col-8 border p-3 border-1 rounded">
+            <!-- Tabs navs -->
+            <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a data-mdb-tab-init class="nav-link active" id="dang-ban" href="#tab1" role="tab"
+                       aria-controls="tab1" aria-selected="true">Đang bán</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a data-mdb-tab-init class="nav-link" id="da-ban" href="#tab2" role="tab" aria-controls="tab2"
+                       aria-selected="false">Đã bán</a>
+                </li>
+            </ul>
+            <!-- Tabs navs -->
+
+            <!-- Tabs content -->
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="dang-ban">
+                    <div class="not-found text-center">
+                        <h2 class="heading">Bạn chưa có bài bán hàng nào</h2>
+                        <button type="button" class="btn btn-info">Đăng bài viết ngay</button>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="da-ban">
+                    <div class="not-found text-center">
+                        <h2 class="heading">Bạn chưa có bài bán hàng nào</h2>
+                        <button type="button" class="btn btn-info">Đăng bài viết ngay</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Tabs content -->
+        </div>
+    </div>
+</div>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.0.0/mdb.umd.min.js"></script>
+</body>
+
+</html>
